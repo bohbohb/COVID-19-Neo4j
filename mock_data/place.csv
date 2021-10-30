@@ -1,101 +1,22 @@
-place_id,place_name
-1,Pidsandawan
-2,Castillos
-3,Phoenix
-4,Miaoya
-5,Xiekou
-6,Prabuty
-7,Sapat
-8,Lagangilang
-9,Napoli
-10,Palla
-11,Jabłoń
-12,Bairro Assunção Piedade
-13,Ambatolampy
-14,Dazuo
-15,Minian
-16,Qindu
-17,Bagou
-18,Panyambungan
-19,Thành Phố Uông Bí
-20,Karasgede
-21,Osinniki
-22,Candi Prambanan
-23,Laotai
-24,Arrap’i
-25,Tawangrejo
-26,Lavras da Mangabeira
-27,Kruhlaye
-28,Utarapasar
-29,Charras
-30,Bezenchuk
-31,Banyubang
-32,Smolec
-33,Tsengel
-34,Alfortville
-35,Nong Ruea
-36,Zamboanga
-37,Rio de Janeiro
-38,Bayt al ‘Awābī
-39,Linköping
-40,Laem Sing
-41,Marčelji
-42,Sihe
-43,São Miguel do Guamá
-44,Hingatungan
-45,Santa Rosa de Copán
-46,Sidi Yahya Ou Saad
-47,Shagang
-48,Berthierville
-49,Lutou
-50,Desa Gegempalan
-51,Al Manāqil
-52,Kyurdarmir
-53,Turiys’k
-54,Bang Kruai
-55,Djibo
-56,Guadalupe
-57,Itarana
-58,Xinglongchang
-59,Krajan
-60,Wenchi
-61,Wenchun
-62,Biecz
-63,Carquefou
-64,Yongfa
-65,Bang Rakam
-66,Padangcermin
-67,Fushi
-68,Mayapusi
-69,Thatèng
-70,Rizokárpaso
-71,Zhangyelu
-72,Pīr jo Goth
-73,Xi’an
-74,Kristinehamn
-75,Tsiatsan
-76,Sumberagung
-77,Ciego de Ávila
-78,Osa
-79,Dalmeny
-80,Asheville
-81,Dubreuil
-82,Fuliang
-83,Naushahro Fīroz
-84,Laascaanood
-85,Bom Despacho
-86,Grazhdanka
-87,Ké-Macina
-88,Campo Verde
-89,Courelas Bravas
-90,Kutapanjang
-91,Dobryanka
-92,Kolor
-93,Alquízar
-94,Amsterdam Noord west
-95,Jacobina
-96,Huskvarna
-97,Itanhandu
-98,Kubang
-99,Poputnaya
-100,Portsmouth
+place_id,place_name,place_category
+1,La Tinera,Restaurant
+2,Agape,Restaurant
+3,Grotto Morchino,Restaurant
+4,Trani,Restaurant
+5,Al barilotto Lugano,Restaurant
+6,Pan,Theater
+7,Delle radici,Theater
+8,LAC,Theater
+9,Cinestar,Cinema
+10,Iride,Cinema
+11,Leonardo da Vinci,School
+12,Cantonale Lugano 1,School
+13,Everest Accademy,School
+14,Sant'Anna,School
+15,CSIA,School
+16,TESL,School
+17,Lugano-Bellinzona,Train
+18,Zurich-Geneva,Train
+19,SEVEN,Club
+20,Underground,Club
+21,Nikka,Club
