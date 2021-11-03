@@ -8,12 +8,14 @@
 </ul>
 
 <div *ngIf="selectedPerson">
-
-  <h2>{{selectedPerson.person_name | uppercase}} {{selectedPerson.person_surname | uppercase}} Details</h2>
-  <div><span>id: </span>{{selectedPerson.person_id}}</div>
+  <h2>{{selectedPerson.person_name | uppercase}} {{selectedPerson.person_surname | uppercase}} Vaccine Details</h2>
   <div>
-    <label for="person-name">Person name: </label>
-    <input id="person-name" [(ngModel)]="selectedPerson.person_name" placeholder="name">
+    <ul class="persons">
+      <li *ngFor="let v of vaccinesForPerson"
+          [class.selected]="">
+        <span class="badge">Vaccine ID : {{v.vaccine_id}}</span> {{v.vaccine_date}}
+        </li>
+    </ul>
   </div>
 
 </div>

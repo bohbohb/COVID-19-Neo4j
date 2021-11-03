@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Person} from "../person";
 import {PERSONS} from "../mock-persons";
 import {DbConnectorService} from "../db-connector.service";
+import { Vaccine } from '../vaccine';
 
 @Component({
   selector: 'app-persons-component',
@@ -13,6 +14,7 @@ export class PersonsComponent implements OnInit {
   persons: Person[] | undefined;
   selectedPerson?: Person;
   dbConnector: DbConnectorService
+  vaccinesForPerson: Vaccine[] = [];
 
   constructor(dbConnector: DbConnectorService) {
     this.dbConnector = dbConnector
@@ -21,6 +23,7 @@ export class PersonsComponent implements OnInit {
   ngOnInit(): void {
     this.dbConnector.connect()
     this.getPersons()
+
   }
 
   getPersons() {
@@ -29,6 +32,7 @@ export class PersonsComponent implements OnInit {
 
   onSelect(person: Person): void {
     this.selectedPerson = person;
+    this.dbConnector.getVaccinesForPerson("3").subscribe(vac => this.vaccinesForPerson = vac)
   }
 
 }
