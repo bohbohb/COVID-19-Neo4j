@@ -10,7 +10,7 @@ CREATE (:Person {person_id: row.person_id, person_name: row.person_name, person_
 LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/relative.csv' AS row
 MATCH (person1:Person {person_id:row.person_id_1})
 MATCH (person2:Person {person_id:row.person_id_2})
-CREATE (person1)-[:RELATED_TO]->(person2)
+CREATE (person1)-[:RELATED_TO]-(person2)
 
 ////////////////////////////////////
 // PLACE //
