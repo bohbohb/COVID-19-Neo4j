@@ -35,7 +35,7 @@ export class DbConnectorService {
   }
 
   rawQuery(query: string, params?: any) {
-    return this.neo4j.run("MATCH (n:Person) RETURN n LIMIT 25")
+    return this.neo4j.run(query, params)
   }
 
   getAllPersons(): Observable<Person[]>  {
