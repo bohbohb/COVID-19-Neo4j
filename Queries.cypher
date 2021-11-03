@@ -30,7 +30,7 @@ CREATE (person1)-[:MEETS {place_id: row.place_id, meeting_date: row.meeting_date
 // CONTAGION
 ////////////////////////////////////
 LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/contagion.csv' AS row
-CREATE (:Contagion {contagion_id: row.contagion_id, contagion_date: row.contagion_date})
+CREATE (:Contagion {contagion_id: row.contagion_id, date(contagion_date): row.contagion_date})
 
 // RELATIONS
 
@@ -50,7 +50,7 @@ CREATE (contagion)-[:OCCUR {place_id: row.contagion_place_id, contagion_id: row.
 // VACCINES //
 ////////////////////////////////////
 LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/vaccine.csv' AS row
-CREATE (:Vaccine {vaccine_id: row.vaccine_id, vaccine_date: row.vaccine_date})
+CREATE (:Vaccine {vaccine_id: row.vaccine_id, vaccine_date: date(row.vaccine_date)})
 
 // (PERSON)
 LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/vaccine_person_relation.csv' AS row
@@ -62,7 +62,7 @@ CREATE (person)-[:GETS {person_id: row.vaccinated_person_id, vaccine_id: row.vac
 // TEST //
 ////////////////////////////////////
 LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/test.csv' AS row
-CREATE (:Test {test_id: row.test_id, test_date: row.test_date, test_type: row.test_type, result: row.result})
+CREATE (:Test {test_id: row.test_id, test_date: date(row.test_date), test_type: row.test_type, result: row.result})
 
 // (PERSON)
 LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/test_person_relation.csv' AS row
@@ -77,7 +77,12 @@ MATCH (n) DETACH DELETE n
 
 // Basic queries // 
 // 1) Number of vaccinated people
+MATCH (p:Person)-[r:GETS]->()
+RETURN count(p) AS count
 // 2) Number of people with positive test (last 30 days)
+MATCH (p:Person)-[r:TAKES]->(t:Test)
+WHERE t.test_date>=date({year: 2021, month: 10})
+RETURN count(p) AS count
 // 3) How many different places category are there? (theather, restaurant, cinema)
 // 4) How many people were contagion at least twice?
 
