@@ -10,7 +10,7 @@ CREATE (:Person {person_id: row.person_id, person_name: row.person_name, person_
 LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/relative.csv' AS row
 MATCH (person1:Person {person_id:row.person_id_1})
 MATCH (person2:Person {person_id:row.person_id_2})
-CREATE (person1)-[:RELATED_TO]-(person2)
+CREATE (person1)-[:RELATED_TO]->(person2)
 
 ////////////////////////////////////
 // PLACE //
@@ -30,7 +30,7 @@ CREATE (person1)-[:MEETS {place_id: row.place_id, meeting_date: row.meeting_date
 // CONTAGION
 ////////////////////////////////////
 LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/contagion.csv' AS row
-CREATE (:Contagion {contagion_id: row.contagion_id, date(contagion_date): row.contagion_date})
+CREATE (:Contagion {contagion_id: row.contagion_id, contagion_date: date(row.contagion_date)})
 
 // RELATIONS
 
@@ -50,7 +50,7 @@ CREATE (contagion)-[:OCCUR {place_id: row.contagion_place_id, contagion_id: row.
 // VACCINES //
 ////////////////////////////////////
 LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/vaccine.csv' AS row
-CREATE (:Vaccine {vaccine_id: row.vaccine_id, vaccine_date: date(row.vaccine_date)})
+CREATE (:Vaccine {vaccine_id: row.vaccine_id, vaccine_date: date(row.vaccine_date), vaccine_manufacturer: row.vaccine_manufacturer})
 
 // (PERSON)
 LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/vaccine_person_relation.csv' AS row
@@ -78,16 +78,26 @@ MATCH (n) DETACH DELETE n
 // Basic queries // 
 // 1) Number of vaccinated people
 MATCH (p:Person)-[r:GETS]->()
-RETURN count(p) AS count
+RETURN count(DISTINC p) AS count
+
 // 2) Number of people with positive test (last 30 days)
 MATCH (p:Person)-[r:TAKES]->(t:Test)
-WHERE t.test_date>=date({year: 2021, month: 10})
-RETURN count(p) AS count
+WHERE t.test_date >= (date() - duration({days:30}))
+RETURN count(DISTINCT p) AS count
+
 // 3) How many different places category are there? (theather, restaurant, cinema)
+MATCH (p:Place)
+RETURN DISTINCT p.place_category AS place
+
 // 4) How many people were contagion at least twice?
+MATCH (p:Person)-[r:IS]->(c:Contagion)
+WITH p, count(c) AS countContag
+WHERE countContag >=2
+RETURN p
 
 // Intermediate queries //
 // 1) Show statistics (grouped) on vaccinated people / tests / 
+
 // 2) Places where the highest number of contagions occurred
 
 // Advanced queries //
