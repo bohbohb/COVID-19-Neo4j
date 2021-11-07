@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="96e0faec-5e90-4b31-a4dc-d60096aacf84" name="Changes" comment="" />
+    <list default="true" id="96e0faec-5e90-4b31-a4dc-d60096aacf84" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/covidCheck.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/db-connector.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/db-connector.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/persons/persons.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/persons/persons.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/persons/persons.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/persons/persons.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/vaccine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/vaccine.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mock_data/vaccine.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../mock_data/vaccine.csv" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,7 +43,6 @@
   <component name="RunManager" selected="npm.Angular CLI Server">
     <configuration name="Tests (frontendNeo4j)" type="JavaScriptTestRunnerKarma">
       <config-file value="$PROJECT_DIR$/karma.conf.js" />
-      <karma-package-dir value="$PROJECT_DIR$/node_modules/@angular/cli" />
       <working-directory value="$PROJECT_DIR$" />
       <node-interpreter value="project" />
       <envs />
@@ -64,7 +71,8 @@
       <option name="presentableId" value="Default" />
       <updated>1635931849342</updated>
       <workItem from="1635931851449" duration="5169000" />
-      <workItem from="1635943540961" duration="3094000" />
+      <workItem from="1635943540961" duration="4000000" />
+      <workItem from="1635950156535" duration="4722000" />
     </task>
     <servers />
   </component>
@@ -81,5 +89,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

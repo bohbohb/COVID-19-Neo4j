@@ -3,6 +3,7 @@ import { AngularNeo4jService} from "angular-neo4j";
 import { Person} from "./person";
 import { Observable, of } from 'rxjs';
 import { Vaccine } from './vaccine';
+import { CovidCheck } from './covidCheck';
 
 const URL = 'bolt://localhost:7687';
 const USERNAME = 'neo4j';
@@ -17,6 +18,7 @@ export class DbConnectorService {
 
   persons: Person[] = [];
   vaccinesPerson: Vaccine[] = [];
+  testsPerson: CovidCheck[] = [];
 
   constructor(private neo4j: AngularNeo4jService) { }
 
@@ -55,12 +57,14 @@ export class DbConnectorService {
   }
 
   getVaccinesForPerson(idOfPerson: string): Observable<Vaccine[]>  {
+    this.vaccinesPerson = []
     this.neo4j.run("MATCH (p:Person{person_id: $idOfPerson})-[r:GETS]->(v:Vaccine) RETURN v LIMIT 25", {idOfPerson: idOfPerson}).then((result: any) => {
       result.forEach((node: any[]) => {
         let v: Vaccine = {
           vaccine_id: node[0].properties.vaccine_id,
           vaccine_date: node[0].properties.vaccine_date,
           vaccinated_person_id: node[0].properties.vaccinated_person_id,
+          vaccine_manufacturer: node[0].properties.vaccine_manufacturer,
         }
         this.vaccinesPerson?.push(v)
       })
@@ -68,5 +72,25 @@ export class DbConnectorService {
       console.log(e)
     })
     return of(this.vaccinesPerson)
+  }
+
+  getTestForPerson(idOfPerson: string): Observable<CovidCheck[]> {
+
+    this.neo4j.run("MATCH (p:Person{person_id: \"14\"})-[r:TAKES]->(t:Test) RETURN t LIMIT 25", {idOfPerson: idOfPerson}).then((result: any) => {
+      this.testsPerson = []
+      result.forEach((node: any[]) => {
+        let t: CovidCheck = {
+          test_id: node[0].properties.test_id,
+          test_date: node[0].properties.test_date,
+          test_type: node[0].properties.test_type,
+          result: node[0].properties.result,
+        }
+        this.testsPerson?.push(t)
+
+      })
+    }).catch((e: any) => {
+      console.log(e)
+    })
+    return of(this.testsPerson)
   }
 }

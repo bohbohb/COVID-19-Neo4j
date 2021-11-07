@@ -3,6 +3,7 @@ import {Person} from "../person";
 import {PERSONS} from "../mock-persons";
 import {DbConnectorService} from "../db-connector.service";
 import { Vaccine } from '../vaccine';
+import { CovidCheck } from '../covidCheck';
 
 @Component({
   selector: 'app-persons-component',
@@ -15,6 +16,7 @@ export class PersonsComponent implements OnInit {
   selectedPerson?: Person;
   dbConnector: DbConnectorService
   vaccinesForPerson: Vaccine[] = [];
+  testsForPerson: CovidCheck[] = [];
 
   constructor(dbConnector: DbConnectorService) {
     this.dbConnector = dbConnector
@@ -30,9 +32,19 @@ export class PersonsComponent implements OnInit {
      this.dbConnector.getAllPersons().subscribe(pers => this.persons = pers)
   }
 
+  getTests(person: Person) {
+    this.dbConnector.getTestForPerson(person.person_id.toString()).subscribe(test => this.testsForPerson = test)
+  }
+
   onSelect(person: Person): void {
     this.selectedPerson = person;
-    this.dbConnector.getVaccinesForPerson("3").subscribe(vac => this.vaccinesForPerson = vac)
+    this.vaccinesForPerson = [];
+    this.testsForPerson = [];
+    this.dbConnector.getVaccinesForPerson(this.selectedPerson.person_id.toString()).subscribe(vac => this.vaccinesForPerson = vac)
+    this.getTests(this.selectedPerson)
+
+    console.log(this.testsForPerson)
+
   }
 
 }

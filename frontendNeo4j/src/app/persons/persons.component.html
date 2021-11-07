@@ -1,21 +1,27 @@
-<h2>My Persons</h2>
-<ul class="persons">
-  <li *ngFor="let p of persons"
-      [class.selected]="p === selectedPerson"
-      (click)="onSelect(p)">
-    <span class="badge">{{p.person_id}}</span> {{p.person_name}} {{p.person_surname}}
-  </li>
-</ul>
-
-<div *ngIf="selectedPerson">
-  <h2>{{selectedPerson.person_name | uppercase}} {{selectedPerson.person_surname | uppercase}} Vaccine Details</h2>
-  <div>
+<div style="width: 100%; overflow: hidden;">
+  <div style="width: 400px; float: left;">
+    <h2>My Persons</h2>
     <ul class="persons">
-      <li *ngFor="let v of vaccinesForPerson"
-          [class.selected]="">
-        <span class="badge">Vaccine ID : {{v.vaccine_id}}</span> {{v.vaccine_date}}
-        </li>
+      <li *ngFor="let p of persons"
+          [class.selected]="p === selectedPerson"
+          (click)="onSelect(p)">
+        <span class="badge">{{p.person_id}}</span> {{p.person_name}} {{p.person_surname}}
+      </li>
     </ul>
   </div>
-
+  <div style="margin-left: 420px;">
+    <div *ngIf="selectedPerson">
+      <h2>Vaccine Details</h2>
+      <div>
+        <ul class="persons">
+          <li *ngFor="let v of vaccinesForPerson"
+              [class.selected]="">
+            <span class="badge">Vaccine : {{v.vaccine_id}}</span> {{v.vaccine_date}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
+
+
