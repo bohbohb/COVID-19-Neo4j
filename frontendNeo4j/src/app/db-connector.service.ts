@@ -75,7 +75,6 @@ export class DbConnectorService {
   }
 
   getTestForPerson(idOfPerson: string): Observable<CovidCheck[]> {
-
     this.neo4j.run("MATCH (p:Person{person_id: \"14\"})-[r:TAKES]->(t:Test) RETURN t LIMIT 25", {idOfPerson: idOfPerson}).then((result: any) => {
       this.testsPerson = []
       result.forEach((node: any[]) => {

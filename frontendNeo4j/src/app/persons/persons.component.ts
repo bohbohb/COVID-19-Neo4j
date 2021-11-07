@@ -33,7 +33,10 @@ export class PersonsComponent implements OnInit {
   }
 
   getTests(person: Person) {
-    this.dbConnector.getTestForPerson(person.person_id.toString()).subscribe(test => this.testsForPerson = test)
+    this.dbConnector.getTestForPerson(person.person_id.toString()).subscribe(test => {
+      this.testsForPerson = test
+      console.log(this.testsForPerson)
+    })
   }
 
   onSelect(person: Person): void {
@@ -43,7 +46,7 @@ export class PersonsComponent implements OnInit {
     this.dbConnector.getVaccinesForPerson(this.selectedPerson.person_id.toString()).subscribe(vac => this.vaccinesForPerson = vac)
     this.getTests(this.selectedPerson)
 
-    console.log(this.testsForPerson)
+
 
   }
 

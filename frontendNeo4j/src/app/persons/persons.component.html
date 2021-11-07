@@ -22,6 +22,19 @@
       </div>
     </div>
   </div>
+  <div style="margin-left: 420px;">
+    <div *ngIf="selectedPerson">
+      <h2>Test Details</h2>
+      <div>
+        <ul class="persons">
+          <li *ngFor="let t of testsForPerson"
+              [class.selected]="">
+            <span class="badge">Test : {{t.test_id}}</span> {{t.test_date}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 
