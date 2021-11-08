@@ -16,14 +16,6 @@ LOAD CSV WITH HEADERS FROM $db + 'relative.csv' AS row
 MATCH (person1:Person {person_id:row.person_id_1}), (person2:Person {person_id:row.person_id_2})
 CREATE (person1)-[:RELATED_TO]->(person2);
 
-// ////////////////////////////////////
-// // PLACE //
-// ////////////////////////////////////
-//
-// // (NODE) Loading the (PLACE) nodes
-// LOAD CSV WITH HEADERS FROM 'http://localhost:11001/project-da7cfe3e-7448-46ba-905f-926647e1f16d/place.csv' AS row
-// CREATE (:Place {place_id: row.place_id, place_name: row.place_name, place_category: row.place_category})
-
 // (EDGES) Loading the (MEETS) edges
 LOAD CSV WITH HEADERS FROM $db + 'meets_trimmed.csv' AS row
 MATCH (person1:Person {person_id:row.person_id_1}), (person2:Person {person_id:row.person_id_2})
@@ -33,7 +25,8 @@ CREATE (person1)-[:MEETS {place_name: row.place_name, place_category: row.place_
 // CONTAGION
 ////////////////////////////////////
 LOAD CSV WITH HEADERS FROM $db + 'contagion.csv' AS row
-CREATE (:Contagion {contagion_id: row.contagion_id, contagion_date: date(row.contagion_date)});
+CREATE (:Contagion {contagion_id: row.contagion_id, contagion_date: date(row.contagion_date), 
+contagion_place_name: row.place_name, contagion_place_category: row.place_category});
 
 // RELATIONS
 
@@ -42,10 +35,10 @@ LOAD CSV WITH HEADERS FROM $db + 'contagion_person_relation.csv' AS row
 MATCH (person:Person {person_id:row.infected_person_id}), (contagion:Contagion {contagion_id:row.contagion_id})
 CREATE (person)-[:IS {person_id: row.infected_person_id, contagion_id: row.contagion_id} ]->(contagion);
 
-// (PLACES)
-LOAD CSV WITH HEADERS FROM $db + 'contagion_place_relation.csv' AS row
-MATCH (place:Place {place_id:row.contagion_place_id}), (contagion:Contagion {contagion_id:row.contagion_id})
-CREATE (contagion)-[:OCCUR {place_id: row.contagion_place_id, contagion_id: row.contagion_id} ]->(place);
+// // (PLACES) THERE IS NO MORE A PLACE
+// LOAD CSV WITH HEADERS FROM $db + 'contagion_place_relation.csv' AS row
+// MATCH (place:Place {place_id:row.contagion_place_id}), (contagion:Contagion {contagion_id:row.contagion_id})
+// CREATE (contagion)-[:OCCUR {place_id: row.contagion_place_id, contagion_id: row.contagion_id} ]->(place);
 
 ////////////////////////////////////
 // VACCINES //
@@ -94,6 +87,7 @@ WITH p, count(c) AS countContag
 WHERE countContag >=2
 RETURN p
 
+// Check that all the relatives of an infected person gets infected (as required by the project report)
 // Intermediate queries //
 // 1) Show statistics (grouped) on vaccinated people / tests / 
 
@@ -101,4 +95,5 @@ RETURN p
 
 // Advanced queries //
 // 1) Retrieve all the people that are max "n" relationships away from a contagion ( these should have higher chances of being infected )
+
 // 2) 
