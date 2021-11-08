@@ -1,0 +1,23 @@
+,contagion_id,contagion_date,place_name,place_category
+0,2,2021-10-06,Everest Accademy,School
+1,62,2021-07-27,Everest Accademy,School
+2,5,2021-08-10,Al barilotto Lugano,Restaurant
+3,23,2020-11-13,Al barilotto Lugano,Restaurant
+4,32,2021-01-28,Al barilotto Lugano,Restaurant
+5,80,2021-08-22,Al barilotto Lugano,Restaurant
+6,7,2021-07-28,Underground,Club
+7,51,2021-10-09,Underground,Club
+8,13,2021-08-17,CSIA,School
+9,15,2021-09-17,Sant'Anna,School
+10,22,2021-08-13,Nikka,Club
+11,36,2020-11-23,Lugano-Bellinzona,Train
+12,47,2020-12-16,Lugano-Bellinzona,Train
+13,44,2020-11-10,Iride,Cinema
+14,69,2021-07-25,Iride,Cinema
+15,49,2020-11-19,Cinestar,Cinema
+16,66,2020-11-16,Cinestar,Cinema
+17,67,2021-04-05,Pan,Theater
+18,85,2021-09-18,Pan,Theater
+19,87,2021-05-26,Delle radici,Theater
+20,89,2021-01-17,Trani,Restaurant
+21,94,2020-10-29,Trani,Restaurant
