@@ -35,10 +35,6 @@ LOAD CSV WITH HEADERS FROM $db + 'contagion_person_relation.csv' AS row
 MATCH (person:Person {person_id:row.infected_person_id}), (contagion:Contagion {contagion_id:row.contagion_id})
 CREATE (person)-[:IS {person_id: row.infected_person_id, contagion_id: row.contagion_id} ]->(contagion);
 
-// // (PLACES) THERE IS NO MORE A PLACE
-// LOAD CSV WITH HEADERS FROM $db + 'contagion_place_relation.csv' AS row
-// MATCH (place:Place {place_id:row.contagion_place_id}), (contagion:Contagion {contagion_id:row.contagion_id})
-// CREATE (contagion)-[:OCCUR {place_id: row.contagion_place_id, contagion_id: row.contagion_id} ]->(place);
 
 ////////////////////////////////////
 // VACCINES //
