@@ -66,7 +66,7 @@ MATCH (n) DETACH DELETE n
 // Basic queries // 
 // 1) Number of vaccinated people
 MATCH (p:Person)-[r:GETS]->()
-RETURN count(DISTINC p) AS count
+RETURN count(DISTINCT p) AS count
 
 // 2) Number of people with positive test (last 30 days)
 MATCH (p:Person)-[r:TAKES]->(t:Test)
