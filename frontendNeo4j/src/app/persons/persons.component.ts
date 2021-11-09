@@ -35,7 +35,7 @@ export class PersonsComponent implements OnInit {
   getTests(person: Person) {
     this.dbConnector.getTestForPerson(person.person_id.toString()).subscribe(test => {
       this.testsForPerson = test
-      console.log(this.testsForPerson)
+      //console.log(test)
     })
   }
 

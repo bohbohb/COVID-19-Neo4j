@@ -1,16 +1,18 @@
 <div style="width: 100%; overflow: hidden;">
-  <div style="width: 400px; float: left;">
-    <h2>My Persons</h2>
-    <ul class="persons">
-      <li *ngFor="let p of persons"
-          [class.selected]="p === selectedPerson"
-          (click)="onSelect(p)">
-        <span class="badge">{{p.person_id}}</span> {{p.person_name}} {{p.person_surname}}
-      </li>
-    </ul>
-  </div>
-  <div style="margin-left: 420px;">
-    <div *ngIf="selectedPerson">
+
+  <div class="container">
+    <div class="item">
+      <h2>My Persons</h2>
+      <ul class="persons">
+        <li *ngFor="let p of persons"
+            [class.selected]="p === selectedPerson"
+            (click)="onSelect(p)">
+          <span class="badge">{{p.person_id}}</span> {{p.person_name}} {{p.person_surname}}
+        </li>
+      </ul>
+    </div>
+
+    <div class="item" *ngIf="selectedPerson">
       <h2>Vaccine Details</h2>
       <div>
         <ul class="persons">
@@ -21,9 +23,8 @@
         </ul>
       </div>
     </div>
-  </div>
-  <div style="margin-left: 420px;">
-    <div *ngIf="selectedPerson">
+
+    <div class="item" *ngIf="selectedPerson">
       <h2>Test Details</h2>
       <div>
         <ul class="persons">
@@ -33,8 +34,6 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> 
   </div>
 </div>
-
-

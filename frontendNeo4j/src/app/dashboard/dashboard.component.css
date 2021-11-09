@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.item{
+    width: 50%;
+}
+
+.list{
+    padding: 0;
+    list-style: none;
+    font-weight: bold;
+}
+
+.tab{
+    margin: auto;
+}
+
+.tab td, .tab th {
+    padding-right: 10px;
+}
