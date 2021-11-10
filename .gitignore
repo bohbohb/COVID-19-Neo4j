@@ -1,4 +1,4 @@
 *.DS_Store
-frontendNeo4j/.idea/
-frontendNeo4j/node_modules/
+node_modules/
+frontendNeo4j/node_modules
 

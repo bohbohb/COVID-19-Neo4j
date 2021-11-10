@@ -1,0 +1,77 @@
+<div style="width: 100%; overflow: hidden;">
+    <div style="text-align: center;">
+        <h2>Dashboard</h2> 
+    </div>
+    <div class="container">
+        <div class="item">
+            <h3>{{numberOfVacconatedPeople}}</h3>
+            <p>Number of vaccinated people</p>
+        </div>
+        <div class="item">
+            <h3>{{numberOfPeopleWithPositiveTestLast30Days}}</h3>
+            <p>Number of people with positive test (last 30 days)</p>
+        </div>
+        <div class="item">
+            <p>What are the different places category ?</p>
+            <ul class="list">
+                <li *ngFor="let place of differentPlacesCategory">{{place}}</li>
+            </ul>
+        </div>
+        <div class="item">
+            <p>What are the people were contagion at least twice?</p>
+            <ul class="list">
+                <li *ngFor="let person of personsWereContagionAtLeastTwice">{{person.person_name}} {{person.person_surname}}</li>
+            </ul>
+        </div>
+        <div class="item">
+            <p>Place categories where the highest number of contagions occurred</p>
+            <table class="tab">
+                <tr *ngFor="let place of contagionsPlaces">
+                    <td>
+                        <label for="{{place.place_name}}">{{place.place_name}} </label>
+                    </td>
+                    <td>
+                        <progress id="{{place.place_name}}" value="{{place.contagion_number}}" max="{{totalContagionsInPlaces}}"></progress>
+                    </td>
+                    <td>
+                        <label for="{{place.place_name}}">{{place.contagion_number}} </label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="item">
+            <p>Top 3 ranking of highest number of contagions in place category</p>
+            <table class="tab" *ngIf="top3ContagionsPlaces.length == 3">
+                <tr>
+                    <td></td>
+                    <td>
+                        <label>{{top3ContagionsPlaces[0].place_name}} </label>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>{{top3ContagionsPlaces[1].place_name}} </label></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>
+                        <label>{{top3ContagionsPlaces[2].place_name}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <th>1</th>
+                    <th>3</th>
+                </tr>
+            </table>
+        </div>
+        <div class="item">
+            <h3>{{maxNumberOfContagionInASinglePlace}}</h3>
+            <p>Maximum number of contagion in a single place</p>
+        </div>
+    </div>
+</div>
+  
+  

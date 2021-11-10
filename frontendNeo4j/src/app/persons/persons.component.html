@@ -1,0 +1,39 @@
+<div style="width: 100%; overflow: hidden;">
+
+  <div class="container">
+    <div class="item">
+      <h2>My Persons</h2>
+      <ul class="persons">
+        <li *ngFor="let p of persons"
+            [class.selected]="p === selectedPerson"
+            (click)="onSelect(p)">
+          <span class="badge">{{p.person_id}}</span> {{p.person_name}} {{p.person_surname}}
+        </li>
+      </ul>
+    </div>
+
+    <div class="item" *ngIf="selectedPerson">
+      <h2>Vaccine Details</h2>
+      <div>
+        <ul class="persons">
+          <li *ngFor="let v of vaccinesForPerson"
+              [class.selected]="">
+            <span class="badge">Vaccine : {{v.vaccine_id}}</span> {{v.vaccine_date}}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item" *ngIf="selectedPerson">
+      <h2>Test Details</h2>
+      <div>
+        <ul class="persons">
+          <li *ngFor="let t of testsForPerson"
+              [class.selected]="">
+            <span class="badge">Test : {{t.test_id}}</span> {{t.test_date}}
+          </li>
+        </ul>
+      </div>
+    </div> 
+  </div>
+</div>
