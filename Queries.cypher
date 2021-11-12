@@ -33,7 +33,7 @@ contagion_place_name: row.place_name, contagion_place_category: row.place_catego
 // (PERSON)
 LOAD CSV WITH HEADERS FROM $db + 'contagion_person_relation.csv' AS row
 MATCH (person:Person {person_id:row.infected_person_id}), (contagion:Contagion {contagion_id:row.contagion_id})
-CREATE (person)-[:IS {person_id: row.infected_person_id, contagion_id: row.contagion_id} ]->(contagion);
+CREATE (person)-[:IS ]->(contagion);
 
 
 ////////////////////////////////////
@@ -45,7 +45,7 @@ CREATE (:Vaccine {vaccine_id: row.vaccine_id, vaccine_date: date(row.vaccine_dat
 // (PERSON)
 LOAD CSV WITH HEADERS FROM $db + 'vaccine_person_relation.csv' AS row
 MATCH (person:Person {person_id:row.vaccinated_person_id}), (vaccine:Vaccine {vaccine_id:row.vaccine_id})
-CREATE (person)-[:GETS {person_id: row.vaccinated_person_id, vaccine_id: row.vaccine_id} ]->(vaccine);
+CREATE (person)-[:GETS ]->(vaccine);
 
 ////////////////////////////////////
 // TEST //
@@ -56,7 +56,7 @@ CREATE (:Test {test_id: row.test_id, test_date: date(row.test_date), test_type: 
 // (PERSON)
 LOAD CSV WITH HEADERS FROM $db + 'test_person_relation.csv' AS row
 MATCH (person:Person {person_id:row.tested_person_id}), (test:Test {test_id:row.test_id})
-CREATE (person)-[:TAKES {person_id: row.tested_person_id, test_id: row.test_id} ]->(test);
+CREATE (person)-[:TAKES ]->(test);
 
 // DELETE //
 MATCH (n) DETACH DELETE n
