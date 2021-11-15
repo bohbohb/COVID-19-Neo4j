@@ -63,36 +63,52 @@ MATCH (n) DETACH DELETE n
 
 // QUERIES //
 
+// // // // // // // 
 // Basic queries // 
+// // // // // // // 
+
 // 1) Number of vaccinated people
 MATCH (p:Person)-[r:GETS]->()
 RETURN count(DISTINCT p) AS count
 
-// 2) Number of people with positive test (last 30 days)
+// 2) Number of people with a positive test over the last "n" days
+:param days: 30
 MATCH (p:Person)-[r:TAKES]->(t:Test)
-WHERE t.test_date >= (date() - duration({days:30}))
-RETURN count(DISTINCT p) AS count
+WHERE 
+    t.test_date >= (date() - duration({days: $days}))
+    AND t.result = "True"
+RETURN count(DISTINCT p) AS CountPositivesNDays
 
-// 3) How many different places category are there? (theather, restaurant, cinema)
+// 3) Distinct point of interests for people to meet
 MATCH (p1:Person)-[r:MEETS]->(p2:Person)
 RETURN DISTINCT r.place_category AS place
 
-// 4) How many people were contagion at least twice?
+// 4) Who have been a contagion at least twice?
 MATCH (p:Person)-[r:IS]->(c:Contagion)
 WITH p, count(c) AS countContag
-WHERE countContag >=2
+WHERE countContag >= 2
 RETURN p
 
-// Check that all the relatives of an infected person gets infected (as required by the project report)
-// Intermediate queries //
+// 5) Fully vaccinated people
+MATCH (p:Person)-[r:GETS]-(v:Vaccine)
+WITH p, COUNT(v) AS NVaccineShots
+WHERE NVaccineShots = 2
+MATCH (p)-[r:GETS]-(v:Vaccine)
+RETURN p, r, v
 
-// 1) Place categories where the highest number of contagions occurred
+// // // // // // // // // 
+// Intermediate queries // 
+// // // // // // // // // 
+
+// 1) Place categories ordered by number of contagions occurred
 MATCH (c:Contagion)
-WITH c.contagion_place_category as Place, count(*) as NContagions
+WITH 
+    c.contagion_place_category AS Place, 
+    count(*) AS NContagions
 ORDER BY NContagions DESC
 RETURN Place, NContagions
 
-// 2) Top 3 ranking of highest number of contagions in place category
+// 2) Top 3 ranking of highest number of contagions by place category
 MATCH (c:Contagion)
 WITH c.contagion_place_category as Place, count(*) as NContagions
 ORDER BY NContagions DESC
@@ -105,9 +121,13 @@ WITH c.contagion_place_name as Place, count(*) as NContagions
 UNWIND NContagions as element
 RETURN max(element) AS MaxNContagions
 
-// Advanced queries //
+// // // // // // // // // 
+// Intermediate queries // 
+// // // // // // // // // 
+
 // 1) Retrieve all the people that have been a contagion along with all their parents
-// relationships away from a contagion ( these should have higher chances of being infected )
+// relationships max "n" people away ( higher chances of being infected )
+:param n: 2
 MATCH (p:Person)-[r1:IS]-(c:Contagion)
-MATCH (p)-[r2:RELATED_TO*..n]-(p2:Person)
+MATCH (p)-[r2:RELATED_TO*..$n]-(p2:Person)
 RETURN *
