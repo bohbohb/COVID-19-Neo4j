@@ -108,6 +108,7 @@ export class DbConnectorService {
     )
   }
 
+  // Number of vaccinated people in the database
   getNumberOfVacconatedPeople(): Observable<number> {
     return from(this.neo4j.run('MATCH (p:Person)-[r:GETS]->() RETURN count(DISTINCT p) AS count')).pipe(
       map((result: any) => {
@@ -119,6 +120,7 @@ export class DbConnectorService {
     )
   }
 
+  // Number of people with a positive tests over the last “n” days
   getNumberOfPeopleWithPositiveTestLast30Days(): Observable<number> {
     return from(this.neo4j.run('MATCH (p:Person)-[r:TAKES]->(t:Test) WHERE t.test_date >= (date() - duration({days:30})) RETURN count(DISTINCT p) AS count')).pipe(
       map((result: any) => {
@@ -130,6 +132,7 @@ export class DbConnectorService {
     )
   }
 
+  // Distinct point of interests for people to meet
   getDifferentPlacesCategory(): Observable<Places[]> {
     return from(this.neo4j.run('MATCH (p1:Person)-[r:MEETS]->(p2:Person) RETURN DISTINCT r.place_category AS place')).pipe(
       map((result: any) => {
@@ -142,6 +145,7 @@ export class DbConnectorService {
     )
   }
 
+  // Who have been a contagion at least twice?
   getPersonsWereContagionAtLeastTwice() : Observable<Person[]> {
     return from(this.neo4j.run("MATCH (p:Person)-[r:IS]->(c:Contagion) WITH p, count(c) AS countContag WHERE countContag >=2 RETURN p")).pipe(
       map((result: any) => {
@@ -181,6 +185,7 @@ export class DbConnectorService {
     )
   }
 
+  // Top 3 ranking of highest number of contagions by place category
   getTop3RankingOfHighestNumberOfContagionsInPlaceCategory(): Observable<Places[]>  {
     return from(this.neo4j.run("MATCH (c:Contagion) WITH c.contagion_place_category as Place, count(*) as NContagions ORDER BY NContagions DESC LIMIT 3 RETURN Place, NContagions")).pipe(
       map((result: any) => {
@@ -200,6 +205,7 @@ export class DbConnectorService {
     )
   }
 
+  // Maximum number of contagion in a single place
   getMaxNumberOfContagionInASinglePlace(): Observable<number> {
     return from(this.neo4j.run('MATCH (c:Contagion) WITH c.contagion_place_name as Place, count(*) as NContagions UNWIND NContagions as element RETURN max(element) AS MaxNContagions')).pipe(
       map((result: any) => {
@@ -211,6 +217,8 @@ export class DbConnectorService {
     )
   }
 
+  // Retrieve all the people that have been a contagion along with all their parents
+  // relationships max "n" people away ( higher chances of being infected )
   getAllThePeopleThatHaveBeenAContagionAlongWithAllTheirParentsRelationshipsAwayFromAContagion() {
     return from(this.neo4j.run('MATCH (p:Person)-[r1:IS]-(c:Contagion) MATCH (p)-[r2:RELATED_TO*..1]-(p2:Person) RETURN *')).pipe(
       map((result: any) => {
